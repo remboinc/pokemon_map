@@ -5,7 +5,7 @@ from django.forms import model_to_dict
 from django.http import HttpResponseNotFound
 from django.shortcuts import render
 
-from .models import Pokemon, PokemonEntity
+from pokemon_entities.models import Pokemon, PokemonEntity
 
 MOSCOW_CENTER = [55.751244, 37.618423]
 DEFAULT_IMAGE_URL = (
@@ -37,7 +37,7 @@ def show_all_pokemons(request):
             folium_map,
             pokemon_info['lat'],
             pokemon_info['lon'],
-            pokemon_info,
+            image_url=pokemon.pokemon.image.url,
         )
     pokemons = Pokemon.objects.all()
     pokemons_on_page = []
