@@ -65,6 +65,7 @@ def show_pokemon(request, pokemon_id):
             'pokemon_id': requested_pokemon.id,
             'img_url': request.build_absolute_uri(requested_pokemon.pokemon.image.url),
             'title_ru': requested_pokemon.pokemon.title,
+            'description': requested_pokemon.pokemon.description
         })
     except PokemonEntity.DoesNotExist:
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')

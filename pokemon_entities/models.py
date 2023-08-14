@@ -4,6 +4,7 @@ from django.db import models  # noqa F401
 class Pokemon(models.Model):
     title = models.TextField(max_length=200)
     image = models.ImageField(upload_to='pokemon_images/', null=True)
+    description = models.TextField(max_length=1000, default="Тут должно быть описание")
 
     def __str__(self):
         return self.title
