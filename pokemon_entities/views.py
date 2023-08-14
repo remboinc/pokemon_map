@@ -58,11 +58,17 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
     now = timezone.now()
     local_time = timezone.localtime(now)
+    pokemons_on_page = {}
     try:
         requested_pokemon = PokemonEntity.objects.get(id=pokemon_id)
+        pokemons_on_page.update({
+            'pokemon_id': requested_pokemon.id,
+            'img_url': request.build_absolute_uri(requested_pokemon.pokemon.image.url),
+            'title_ru': requested_pokemon.pokemon.title,
+        })
     except PokemonEntity.DoesNotExist:
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
-    pokemons_on_page = []
+
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     if requested_pokemon.appeared_at <= local_time <= requested_pokemon.disappeared_at and requested_pokemon.pokemon.image:
         add_pokemon(
@@ -71,11 +77,6 @@ def show_pokemon(request, pokemon_id):
             requested_pokemon.lon,
             image_url=request.build_absolute_uri(requested_pokemon.pokemon.image.url),
         )
-    pokemons_on_page.append({
-        'pokemon_id': requested_pokemon.pokemon.id,
-        'img_url': request.build_absolute_uri(requested_pokemon.pokemon.image.url),
-        'title_ru': requested_pokemon.pokemon.title,
-    })
     return render(request, 'pokemon.html', context={
         'map': folium_map._repr_html_(), 'pokemon': pokemons_on_page,
     })
