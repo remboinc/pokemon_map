@@ -7,9 +7,8 @@ class Pokemon(models.Model):
     description = models.TextField(max_length=1000, default="Тут должно быть описание")
     title_en = models.TextField(max_length=200, default='title')
     title_jp = models.TextField(max_length=200, default='フシギダネ')
-    evolved_from = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='previous_evolution')
-    evolved_to = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='next_evolution')
-
+    evolution = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True,
+                                  related_name='related_evolution')
     def __str__(self):
         return self.title
 

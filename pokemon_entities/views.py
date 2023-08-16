@@ -69,18 +69,21 @@ def show_pokemon(request, pokemon_id):
             "title_en": requested_pokemon.pokemon.title_en,
             "title_jp": requested_pokemon.pokemon.title_jp,
         })
-        if requested_pokemon.pokemon.evolved_from:
+
+        if requested_pokemon.pokemon.evolution:
+            related_evolution = requested_pokemon.pokemon.evolution
             pokemons_on_page['previous_evolution'] = {
-                'title_ru': requested_pokemon.pokemon.evolved_from.title,
-                'pokemon_id': requested_pokemon.pokemon.evolved_from.id,
-                'img_url': request.build_absolute_uri(requested_pokemon.pokemon.evolved_from.image.url),
+                'title_ru': related_evolution.title,
+                'pokemon_id': related_evolution.id,
+                'img_url': request.build_absolute_uri(related_evolution.image.url),
             }
 
-        if requested_pokemon.pokemon.evolved_to:
+        if requested_pokemon.pokemon.related_evolution.exists():
+            related_evolution = requested_pokemon.pokemon.related_evolution.first()
             pokemons_on_page['next_evolution'] = {
-                'title_ru': requested_pokemon.pokemon.evolved_to.title,
-                'pokemon_id': requested_pokemon.pokemon.evolved_to.id,
-                'img_url': request.build_absolute_uri(requested_pokemon.pokemon.evolved_to.image.url),
+                'title_ru': related_evolution.title,
+                'pokemon_id': related_evolution.id,
+                'img_url': request.build_absolute_uri(related_evolution.image.url),
             }
 
     except PokemonEntity.DoesNotExist:
