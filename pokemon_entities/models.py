@@ -9,6 +9,7 @@ class Pokemon(models.Model):
     title_jp = models.TextField(max_length=200, default='フシギダネ', verbose_name='Название на японском')
     evolution = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True,
                                   related_name='related_evolution', verbose_name='Эволюция')
+
     def __str__(self):
         return self.title
 

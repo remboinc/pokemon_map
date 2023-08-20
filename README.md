@@ -18,7 +18,12 @@
 
 Для запуска сайта вам понадобится Python третьей версии.
 
-Скачайте код с GitHub. Затем установите зависимости
+Скачайте код с GitHub. 
+
+```sh
+git clone https://github.com/remboinc/pokemon_map.git
+```
+Затем установите зависимости
 
 ```sh
 pip install -r requirements.txt
