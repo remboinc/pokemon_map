@@ -70,8 +70,8 @@ def show_pokemon(request, pokemon_id):
             "title_jp": requested_pokemon.pokemon.title_jp,
         })
 
-        if requested_pokemon.pokemon.evolution:
-            related_evolution = requested_pokemon.pokemon.evolution
+        if requested_pokemon.pokemon.previous_evolution:
+            related_evolution = requested_pokemon.pokemon.previous_evolution
             pokemons_on_page['previous_evolution'] = {
                 'title_ru': related_evolution.title,
                 'pokemon_id': related_evolution.id,
