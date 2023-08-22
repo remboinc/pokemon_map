@@ -59,16 +59,16 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
     now = timezone.now()
     local_time = timezone.localtime(now)
-    pokemons_on_page = {}
+
     requested_pokemon = get_object_or_404(PokemonEntity, id=pokemon_id)
-    pokemons_on_page.update({
+    pokemons_on_page = {
         'pokemon_id': requested_pokemon.id,
         'img_url': request.build_absolute_uri(requested_pokemon.pokemon.image.url),
         'title_ru': requested_pokemon.pokemon.title,
         'description': requested_pokemon.pokemon.description,
         "title_en": requested_pokemon.pokemon.title_en,
         "title_jp": requested_pokemon.pokemon.title_jp,
-    })
+    }
 
     if requested_pokemon.pokemon.previous_evolution:
         related_evolution = requested_pokemon.pokemon.previous_evolution
