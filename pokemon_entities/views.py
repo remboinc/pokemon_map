@@ -78,7 +78,7 @@ def show_pokemon(request, pokemon_id):
             'img_url': request.build_absolute_uri(related_evolution.image.url),
         }
 
-    if requested_pokemon.pokemon.next_evolution.exists():
+    if requested_pokemon.pokemon.next_evolution.first():
         related_evolution = requested_pokemon.pokemon.next_evolution.first()
         pokemons_on_page['next_evolution'] = {
             'title_ru': related_evolution.title,
